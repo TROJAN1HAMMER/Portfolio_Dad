@@ -6,6 +6,7 @@ import heroPhoto from '../assets/hero.png';
 interface ProfileAvatarProps {
   size?: 'hero' | 'about' | 'compact';
   className?: string;
+  showBadge?: boolean;
 }
 
 /**
@@ -26,7 +27,7 @@ interface ProfileAvatarProps {
  * changing any layout or breaking any surrounding elements.
  * ============================================================================
  */
-export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ size = 'hero', className = '' }) => {
+export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ size = 'hero', className = '', showBadge = true }) => {
   const { advisor } = BUSINESS_CONFIG;
   const { usePhoto, photoPath, altText, objectPosition } = advisor.profilePicture;
 
@@ -60,10 +61,12 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ size = 'hero', cla
         )}
 
         {/* Verified Advisor Badge overlay */}
-        <div className="profile-verified-badge" title="Verified Professional Advisor">
-          <Award className="badge-icon" size={16} />
-          <span>Professional Advisor</span>
-        </div>
+        {showBadge && (
+          <div className="profile-verified-badge" title="Verified Professional Advisor">
+            <Award className="badge-icon" size={16} />
+            <span>Professional Advisor</span>
+          </div>
+        )}
       </div>
     </div>
   );

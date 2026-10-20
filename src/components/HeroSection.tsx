@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, MessageCircle, ShieldCheck, HeartPulse, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, ShieldCheck, HeartPulse, Sparkles, Award } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl } from '../config/business';
 import { ProfileAvatar } from './ProfileAvatar';
 import { useTranslation } from '../i18n/I18nContext';
@@ -77,7 +77,19 @@ export const HeroSection: React.FC = () => {
         <div className="hero-media">
           <div className="hero-avatar-card">
             {/* Dedicated Profile Avatar with dad's photo */}
-            <ProfileAvatar size="hero" />
+            <ProfileAvatar size="hero" showBadge={false} />
+
+            {/* Top Badges (Responsive Flexbox Container: prevents overlap in all languages) */}
+            <div className="hero-top-badges">
+              <div className="profile-verified-badge" title="Verified Professional Advisor">
+                <Award className="badge-icon" size={15} />
+                <span>Professional Advisor</span>
+              </div>
+              <div className="hero-region-badge">
+                <span className="region-dot"></span>
+                <span>{t.hero.regionBadge}</span>
+              </div>
+            </div>
 
             {/* Small floating insurance coverage card */}
             <div className="hero-floating-card">
@@ -88,12 +100,6 @@ export const HeroSection: React.FC = () => {
                 <span className="floating-card-title">{t.hero.floatingCoverageTitle}</span>
                 <span className="floating-card-subtitle">{t.hero.floatingCoverageSub}</span>
               </div>
-            </div>
-
-            {/* Advisory Service Region Tag */}
-            <div className="hero-region-badge">
-              <span className="region-dot"></span>
-              <span>{t.hero.regionBadge}</span>
             </div>
           </div>
         </div>
