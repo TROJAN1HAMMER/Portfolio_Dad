@@ -2387,111 +2387,104 @@
     padding: 0 0.5rem;
     font-size: 0.85rem;
   }
-
-/* --------------------------------------------------------------------------
-   Languages I Speak Section Styles
-   -------------------------------------------------------------------------- */
-.advisor-languages-banner {
-  margin-top: 4rem;
-  background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFD 100%);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: 2.5rem 2.25rem;
-  box-shadow: var(--shadow-md);
-  position: relative;
 }
 
-@media (max-width: 640px) {
-  .advisor-languages-banner {
-    padding: 1.75rem 1.25rem;
-    margin-top: 3rem;
-  }
+/* --------------------------------------------------------------------------
+   Languages I Speak Section Styles (Dedicated Advisor Spoken Languages Banner)
+   -------------------------------------------------------------------------- */
+.advisor-languages-banner {
+  margin-top: 3.5rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFD 100%);
+  border: 1px solid #E2E8F0;
+  border-top: 4px solid var(--color-blue);
+  border-radius: 20px;
+  padding: 2.75rem 2.5rem;
+  box-shadow: 0 10px 25px -5px rgba(11, 31, 68, 0.07), 0 8px 10px -6px rgba(11, 31, 68, 0.04);
+  position: relative;
 }
 
 .advisor-languages-header {
   display: flex;
   align-items: flex-start;
-  gap: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 640px) {
-  .advisor-languages-header {
-    flex-direction: column;
-    gap: 0.85rem;
-  }
+  gap: 1.5rem;
+  margin-bottom: 2.25rem;
 }
 
 .languages-icon-badge {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
-  background-color: var(--color-blue-soft);
-  color: var(--color-blue);
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0B1F44 0%, #1E3A8A 100%);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 6px 16px rgba(11, 31, 68, 0.18);
+}
+
+.languages-tagline {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-blue);
+  margin-bottom: 0.35rem;
 }
 
 .languages-heading {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
+  font-weight: 800;
   color: var(--color-navy);
-  margin-bottom: 0.35rem;
   line-height: 1.25;
-}
-
-@media (max-width: 640px) {
-  .languages-heading {
-    font-size: 1.35rem;
-  }
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.015em;
 }
 
 .languages-subtext {
-  font-size: 1rem;
+  font-size: 1.02rem;
   line-height: 1.65;
-  color: var(--color-text-muted);
-  max-width: 780px;
+  color: #4A5568;
+  max-width: 820px;
+  margin: 0;
 }
 
 .languages-cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
-  margin-bottom: 1.75rem;
-}
-
-@media (min-width: 992px) {
-  .languages-cards-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  margin-bottom: 2rem;
 }
 
 .language-spoken-card {
-  background-color: var(--color-white);
-  border: 1.5px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem 1.25rem;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.75rem 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  transition: all var(--transition-fast);
-  box-shadow: var(--shadow-xs);
-  text-align: center;
   align-items: center;
+  text-align: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(11, 31, 68, 0.04);
+  position: relative;
 }
 
 .language-spoken-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--color-blue);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 14px 28px -6px rgba(26, 86, 219, 0.15), 0 4px 6px -2px rgba(26, 86, 219, 0.05);
 }
 
 .lang-card-header {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 0.75rem;
+  gap: 0.45rem;
+  padding: 0.25rem 0.65rem;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
 }
 
 .lang-card-bullet {
@@ -2499,43 +2492,116 @@
   height: 7px;
   border-radius: 50%;
   background-color: var(--color-green);
-  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
 }
 
 .lang-fluent-tag {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-green);
+  color: #047857;
 }
 
 .lang-native-script {
-  font-size: 1.65rem;
+  font-size: 1.9rem;
   font-weight: 800;
   color: var(--color-navy);
-  margin-bottom: 0.25rem;
   line-height: 1.2;
+  margin-bottom: 0.35rem;
 }
 
 .lang-english-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: #64748B;
 }
 
 .languages-note {
-  background-color: var(--color-bg-soft);
-  border-radius: var(--radius-sm);
-  padding: 0.85rem 1.15rem;
-  border-left: 3px solid var(--color-blue);
+  background: #F1F5F9;
+  border-radius: 12px;
+  padding: 1.1rem 1.35rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  border-left: 4px solid var(--color-blue);
+}
+
+.languages-note-icon {
+  color: var(--color-blue);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .languages-note p {
-  font-size: 0.8rem;
-  color: var(--color-text-light);
-  line-height: 1.5;
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
   margin: 0;
+}
+
+@media (max-width: 992px) {
+  .languages-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .advisor-languages-banner {
+    padding: 1.75rem 1.25rem;
+    margin-top: 2.5rem;
+    border-radius: 16px;
+  }
+
+  .advisor-languages-header {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .languages-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .languages-heading {
+    font-size: 1.35rem;
+  }
+
+  .languages-subtext {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .languages-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .language-spoken-card {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .lang-native-script {
+    font-size: 1.55rem;
+  }
+
+  .languages-note {
+    padding: 0.9rem 1rem;
+    gap: 0.65rem;
+  }
+
+  .languages-note p {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .languages-cards-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 

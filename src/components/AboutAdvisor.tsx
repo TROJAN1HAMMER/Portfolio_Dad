@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Check, Languages } from 'lucide-react';
+import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Check, Languages, Info } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl, buildMailtoUrl } from '../config/business';
 import { ProfileAvatar } from './ProfileAvatar';
 import { useTranslation } from '../i18n/I18nContext';
@@ -112,9 +112,10 @@ export const AboutAdvisor: React.FC = () => {
         <div className="advisor-languages-banner">
           <div className="advisor-languages-header">
             <div className="languages-icon-badge">
-              <Languages size={24} />
+              <Languages size={26} strokeWidth={2.2} />
             </div>
             <div className="languages-header-text">
+              <div className="languages-tagline">Multilingual Insurance Advisory</div>
               <h3 className="languages-heading">{t.about.languagesSpoken.heading}</h3>
               <p className="languages-subtext">{t.about.languagesSpoken.supportingText}</p>
             </div>
@@ -134,8 +135,9 @@ export const AboutAdvisor: React.FC = () => {
           </div>
 
           <div className="languages-note">
+            <Info size={18} className="languages-note-icon" />
             <p>
-              *{t.about.languagesSpoken.note}
+              {t.about.languagesSpoken.note}
             </p>
           </div>
         </div>
