@@ -10,10 +10,10 @@ export const AboutAdvisor: React.FC = () => {
 
   const getOrgCategory = (shortName: string) => {
     switch (shortName) {
-      case 'Star Health':
-        return t.about.starCategory;
       case 'SBI Life':
         return t.about.sbiCategory;
+      case 'Star Health':
+        return t.about.starCategory;
       case 'ICICI Lombard':
       default:
         return t.about.iciciCategory;

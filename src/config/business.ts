@@ -39,42 +39,26 @@ export const BUSINESS_CONFIG = {
 
   associatedOrganizations: [
     {
+      name: 'SBI Life Insurance',
+      shortName: 'SBI Life',
+      category: 'Life & Financial Planning',
+      description: 'Family Protection, Term & Long-term Savings',
+    },
+    {
       name: 'Star Health and Allied Insurance',
       shortName: 'Star Health',
       category: 'Health Insurance',
       description: 'Individual & Family Medical Coverages',
     },
     {
-      name: 'SBI Life Insurance',
-      shortName: 'SBI Life',
-      category: 'Life & Financial Planning',
-      description: 'Family Protection & Long-term Savings',
-    },
-    {
       name: 'ICICI Lombard General Insurance',
       shortName: 'ICICI Lombard',
       category: 'General Insurance',
-      description: 'Motor, Travel & Property Protection',
+      description: 'Motor, Health, Travel & Property Protection',
     },
   ],
 
   services: [
-    {
-      id: 'health',
-      title: 'Health Insurance',
-      organization: 'Star Health Insurance',
-      tagline: 'Healthcare & Hospitalization Protection',
-      description:
-        'Explore health insurance options designed to help individuals and families manage eligible medical expenses and prepare for unexpected healthcare needs.',
-      features: [
-        'Individual and family health insurance options',
-        'Hospitalization-related coverage guidance',
-        'Understanding policy benefits, exclusions and waiting periods',
-        'Guidance on comparing available plans',
-      ],
-      ctaLabel: 'Explore Health Insurance',
-      defaultCategory: 'Health',
-    },
     {
       id: 'life',
       title: 'Life Insurance & Family Protection',
@@ -91,6 +75,22 @@ export const BUSINESS_CONFIG = {
       ],
       ctaLabel: 'Explore Life & Term Insurance',
       defaultCategory: 'Term',
+    },
+    {
+      id: 'health',
+      title: 'Health Insurance',
+      organization: 'Star Health Insurance',
+      tagline: 'Healthcare & Hospitalization Protection',
+      description:
+        'Explore health insurance options designed to help individuals and families manage eligible medical expenses and prepare for unexpected healthcare needs.',
+      features: [
+        'Individual and family health insurance options',
+        'Hospitalization-related coverage guidance',
+        'Understanding policy benefits, exclusions and waiting periods',
+        'Guidance on comparing available plans',
+      ],
+      ctaLabel: 'Explore Health Insurance',
+      defaultCategory: 'Health',
     },
     {
       id: 'general',

@@ -18,7 +18,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [category, setCategory] = useState(selectedCategory || 'HealthStar');
+  const [category, setCategory] = useState(selectedCategory || 'TermSbi');
   const [preferredMethod, setPreferredMethod] = useState<'WhatsApp' | 'Call' | 'Email'>('WhatsApp');
   const [message, setMessage] = useState('');
   const [consent, setConsent] = useState(false);
@@ -359,16 +359,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       onChange={(e) => setCategory(e.target.value)}
                       className="form-select"
                     >
-                      <optgroup label="Health Insurance">
-                        <option value="HealthStar">{t.contact.categories.healthStar}</option>
-                        <option value="HealthIcici">{t.contact.categories.healthIcici}</option>
-                      </optgroup>
                       <optgroup label="Life, Term & Child Protection (SBI Life)">
                         <option value="TermSbi">{t.contact.categories.termSbi}</option>
                         <option value="ChildSbi">{t.contact.categories.childSbi}</option>
                         <option value="LifeSbi">{t.contact.categories.lifeSbi}</option>
                       </optgroup>
-                      <optgroup label="General Insurance (ICICI Lombard)">
+                      <optgroup label="Health Insurance (Star Health)">
+                        <option value="HealthStar">{t.contact.categories.healthStar}</option>
+                      </optgroup>
+                      <optgroup label="General & Health Insurance (ICICI Lombard)">
+                        <option value="HealthIcici">{t.contact.categories.healthIcici}</option>
                         <option value="MotorIcici">{t.contact.categories.motorIcici}</option>
                         <option value="TravelIcici">{t.contact.categories.travelIcici}</option>
                         <option value="HomeIcici">{t.contact.categories.homeIcici}</option>

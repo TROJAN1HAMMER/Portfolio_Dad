@@ -52,11 +52,33 @@
   --transition-normal: 250ms ease-in-out;
 }
 
+/* Script-Specific Font Stacks for Native Glyphs */
+html[lang="ta"] {
+  --font-family: 'Noto Sans Tamil', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans Tamil', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[lang="ml"] {
+  --font-family: 'Noto Sans Malayalam', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans Malayalam', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[lang="kn"] {
+  --font-family: 'Noto Sans Kannada', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans Kannada', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[lang="hi"] {
+  --font-family: 'Noto Sans Devanagari', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans Devanagari', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* CSS Reset & Defaults */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  overflow-wrap: break-word;
 }
 
 html {
@@ -81,6 +103,24 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
+}
+
+/* Indic Script Typography Adjustments: Prevent Negative Letter-Spacing and Matra Collisions */
+html:not([lang="en"]) h1,
+html:not([lang="en"]) h2,
+html:not([lang="en"]) h3,
+html:not([lang="en"]) h4,
+html:not([lang="en"]) h5,
+html:not([lang="en"]) h6 {
+  letter-spacing: normal;
+  line-height: 1.35;
+}
+
+html:not([lang="en"]) p,
+html:not([lang="en"]) li,
+html:not([lang="en"]) span,
+html:not([lang="en"]) label {
+  line-height: 1.65;
 }
 
 p {

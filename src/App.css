@@ -28,7 +28,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-height);
+  min-height: var(--header-height);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  gap: 1rem;
 }
 
 .brand-logo {
@@ -36,6 +39,8 @@
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .brand-badge {
@@ -52,6 +57,7 @@
   font-size: 1.125rem;
   letter-spacing: 0.05em;
   box-shadow: 0 4px 10px rgba(8, 43, 96, 0.2);
+  flex-shrink: 0;
 }
 
 .brand-badge.small {
@@ -71,30 +77,37 @@
 .brand-text {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .brand-name {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   color: var(--color-navy);
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  letter-spacing: normal;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .brand-descriptor {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-blue);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
 }
 
 .desktop-nav {
   display: none;
+  flex-shrink: 0;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1180px) {
   .desktop-nav {
     display: block;
   }
@@ -103,16 +116,18 @@
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: clamp(0.75rem, 1.35vw, 1.5rem);
   list-style: none;
+  flex-wrap: nowrap;
 }
 
 .nav-link {
-  font-size: 0.9375rem;
+  font-size: clamp(0.85rem, 0.9vw, 0.9375rem);
   font-weight: 600;
   color: var(--color-text-main);
   padding: 0.5rem 0;
   position: relative;
+  white-space: nowrap;
   transition: color var(--transition-fast);
 }
 
@@ -139,10 +154,12 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .header-call-btn {
   display: none;
+  white-space: nowrap;
 }
 
 @media (min-width: 640px) {
@@ -160,7 +177,7 @@
   border-radius: var(--radius-sm);
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1180px) {
   .mobile-menu-toggle {
     display: none;
   }
@@ -304,6 +321,12 @@
   }
 }
 
+html:not([lang="en"]) .hero-title {
+  font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+  line-height: 1.35;
+  letter-spacing: normal;
+}
+
 .highlight-text {
   color: var(--color-blue);
   position: relative;
@@ -324,12 +347,22 @@
   }
 }
 
+html:not([lang="en"]) .hero-subtitle {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.45;
+}
+
 .hero-description {
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--color-text-muted);
   max-width: 600px;
   margin-bottom: 2rem;
+}
+
+html:not([lang="en"]) .hero-description {
+  font-size: 1.02rem;
+  line-height: 1.75;
 }
 
 .hero-cta-group {
@@ -339,11 +372,17 @@
   margin-bottom: 2rem;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
   .hero-cta-group {
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
   }
+}
+
+.hero-cta-call,
+.hero-cta-whatsapp {
+  text-align: center;
 }
 
 .hero-cta-call {
@@ -639,11 +678,19 @@
   grid-template-columns: 1fr;
   gap: 2rem;
   margin-bottom: 2.5rem;
+  align-items: stretch;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   .services-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .services-grid {
+    gap: 2.25rem;
   }
 }
 
@@ -655,6 +702,7 @@
   padding: 2.25rem 1.85rem;
   display: flex;
   flex-direction: column;
+  height: 100%;
   transition: all var(--transition-normal);
   position: relative;
 }
@@ -710,9 +758,20 @@
   border: 1px solid var(--color-border);
 }
 
+.service-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
 .service-card-title {
   font-size: 1.5rem;
   margin-bottom: 0.25rem;
+}
+
+html:not([lang="en"]) .service-card-title {
+  font-size: 1.32rem;
+  line-height: 1.35;
 }
 
 .service-card-tagline {
@@ -722,11 +781,21 @@
   margin-bottom: 1rem;
 }
 
+html:not([lang="en"]) .service-card-tagline {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
 .service-card-desc {
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--color-text-muted);
   margin-bottom: 1.75rem;
+}
+
+html:not([lang="en"]) .service-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 .service-features-list {
@@ -758,6 +827,11 @@
   font-size: 0.9rem;
   color: var(--color-text-muted);
   line-height: 1.45;
+}
+
+html:not([lang="en"]) .feature-item {
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 .feature-check {
@@ -802,6 +876,7 @@
   grid-template-columns: 1fr;
   gap: 1.75rem;
   margin-bottom: 3.5rem;
+  align-items: stretch;
 }
 
 @media (min-width: 640px) {
@@ -823,6 +898,7 @@
   padding: 2rem 1.65rem;
   display: flex;
   flex-direction: column;
+  height: 100%;
   transition: all var(--transition-fast);
 }
 
@@ -869,6 +945,7 @@
   color: var(--color-green);
   padding-top: 1rem;
   border-top: 1px solid var(--color-border-subtle);
+  margin-top: auto;
 }
 
 .why-commitment-banner {
@@ -1080,6 +1157,7 @@
   gap: 2rem;
   margin-bottom: 3rem;
   position: relative;
+  align-items: stretch;
 }
 
 @media (min-width: 900px) {
@@ -1096,6 +1174,7 @@
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  height: 100%;
   position: relative;
 }
 
@@ -1134,6 +1213,7 @@
   font-size: 0.95rem;
   line-height: 1.65;
   color: var(--color-text-muted);
+  flex: 1 1 auto;
 }
 
 .how-cta-container {

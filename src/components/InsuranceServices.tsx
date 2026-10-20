@@ -35,60 +35,7 @@ export const InsuranceServices: React.FC<InsuranceServicesProps> = ({ onSelectCa
         </div>
 
         <div className="services-grid">
-          {/* Card 1: Star Health Insurance */}
-          <div className="service-card service-card-health">
-            <div className="service-card-top">
-              <div className="service-icon-box">
-                <HeartPulse className="service-header-icon health" size={28} />
-              </div>
-              <div className="service-org-badge">
-                <span>{t.services.starHealth.org}</span>
-              </div>
-            </div>
-
-            <div className="service-card-body">
-              <h3 className="service-card-title">{t.services.starHealth.title}</h3>
-              <p className="service-card-tagline">{t.services.starHealth.tagline}</p>
-              <p className="service-card-desc">{t.services.starHealth.desc}</p>
-
-              <div className="service-features-list">
-                <span className="features-header">{t.services.whatWeHelpExplore}</span>
-                <ul>
-                  {t.services.starHealth.features.map((feature, idx) => (
-                    <li key={idx} className="feature-item">
-                      <Check size={16} className="feature-check" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="service-card-actions">
-              <button
-                type="button"
-                onClick={() => handleCardCta('Health')}
-                className="btn btn-primary service-cta-btn"
-                aria-label={`${t.services.starHealth.cta} - Select category`}
-              >
-                <span>{t.services.starHealth.cta}</span>
-                <ArrowRight size={16} />
-              </button>
-
-              <a
-                href={buildLocalizedWhatsAppUrl(t.services.starHealth.title, t.services.starHealth.org)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline btn-sm service-whatsapp-link"
-                title={`Send WhatsApp enquiry about ${t.services.starHealth.title}`}
-              >
-                <MessageCircle size={15} />
-                <span>{t.services.whatsappEnquiryBtn}</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Card 2: SBI Life Insurance (with Term Insurance & Children's Plans explicitly highlighted) */}
+          {/* Card 1: SBI Life Insurance (with Term Insurance & Children's Plans explicitly highlighted) */}
           <div className="service-card service-card-life">
             <div className="service-card-top">
               <div className="service-icon-box">
@@ -145,6 +92,59 @@ export const InsuranceServices: React.FC<InsuranceServicesProps> = ({ onSelectCa
                 rel="noopener noreferrer"
                 className="btn btn-outline btn-sm service-whatsapp-link"
                 title={`Send WhatsApp enquiry about ${t.services.sbiLife.title}`}
+              >
+                <MessageCircle size={15} />
+                <span>{t.services.whatsappEnquiryBtn}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 2: Star Health Insurance */}
+          <div className="service-card service-card-health">
+            <div className="service-card-top">
+              <div className="service-icon-box">
+                <HeartPulse className="service-header-icon health" size={28} />
+              </div>
+              <div className="service-org-badge">
+                <span>{t.services.starHealth.org}</span>
+              </div>
+            </div>
+
+            <div className="service-card-body">
+              <h3 className="service-card-title">{t.services.starHealth.title}</h3>
+              <p className="service-card-tagline">{t.services.starHealth.tagline}</p>
+              <p className="service-card-desc">{t.services.starHealth.desc}</p>
+
+              <div className="service-features-list">
+                <span className="features-header">{t.services.whatWeHelpExplore}</span>
+                <ul>
+                  {t.services.starHealth.features.map((feature, idx) => (
+                    <li key={idx} className="feature-item">
+                      <Check size={16} className="feature-check" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="service-card-actions">
+              <button
+                type="button"
+                onClick={() => handleCardCta('Health')}
+                className="btn btn-primary service-cta-btn"
+                aria-label={`${t.services.starHealth.cta} - Select category`}
+              >
+                <span>{t.services.starHealth.cta}</span>
+                <ArrowRight size={16} />
+              </button>
+
+              <a
+                href={buildLocalizedWhatsAppUrl(t.services.starHealth.title, t.services.starHealth.org)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline btn-sm service-whatsapp-link"
+                title={`Send WhatsApp enquiry about ${t.services.starHealth.title}`}
               >
                 <MessageCircle size={15} />
                 <span>{t.services.whatsappEnquiryBtn}</span>
