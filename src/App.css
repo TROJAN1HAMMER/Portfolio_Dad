@@ -2388,8 +2388,154 @@
     font-size: 0.85rem;
   }
 
-  .contact-methods-radio-group {
-    flex-direction: column;
+/* --------------------------------------------------------------------------
+   Languages I Speak Section Styles
+   -------------------------------------------------------------------------- */
+.advisor-languages-banner {
+  margin-top: 4rem;
+  background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFD 100%);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2.25rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .advisor-languages-banner {
+    padding: 1.75rem 1.25rem;
+    margin-top: 3rem;
   }
 }
+
+.advisor-languages-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 640px) {
+  .advisor-languages-header {
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+}
+
+.languages-icon-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-blue-soft);
+  color: var(--color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-xs);
+}
+
+.languages-heading {
+  font-size: 1.6rem;
+  color: var(--color-navy);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .languages-heading {
+    font-size: 1.35rem;
+  }
+}
+
+.languages-subtext {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  max-width: 780px;
+}
+
+.languages-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (min-width: 992px) {
+  .languages-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.language-spoken-card {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+  text-align: center;
+  align-items: center;
+}
+
+.language-spoken-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-blue);
+  box-shadow: var(--shadow-md);
+}
+
+.lang-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.lang-card-bullet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-green);
+  display: inline-block;
+}
+
+.lang-fluent-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-green);
+}
+
+.lang-native-script {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.lang-english-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.languages-note {
+  background-color: var(--color-bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.15rem;
+  border-left: 3px solid var(--color-blue);
+}
+
+.languages-note p {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  margin: 0;
+}
+
 

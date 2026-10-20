@@ -116,6 +116,7 @@ export interface TranslationDictionary {
         native: string;
         english: string;
       }>;
+      note: string;
     };
   };
   howItWorks: {

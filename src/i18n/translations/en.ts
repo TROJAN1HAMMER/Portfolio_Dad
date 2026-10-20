@@ -152,6 +152,7 @@ export const en: TranslationDictionary = {
         { native: 'हिन्दी', english: 'Hindi' },
         { native: 'ಕನ್ನಡ', english: 'Kannada' },
       ],
+      note: 'Spoken consultation and phone/WhatsApp discussions are conducted in your chosen language. Official insurance policy contracts and underwriting documents are issued in English by the respective insurance organizations.',
     },
   },
   howItWorks: {

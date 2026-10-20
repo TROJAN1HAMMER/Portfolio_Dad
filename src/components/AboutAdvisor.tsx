@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Check } from 'lucide-react';
+import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Check, Languages } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl, buildMailtoUrl } from '../config/business';
 import { ProfileAvatar } from './ProfileAvatar';
 import { useTranslation } from '../i18n/I18nContext';
@@ -105,6 +105,38 @@ export const AboutAdvisor: React.FC = () => {
                 <span>{t.about.directCall}</span>
               </a>
             </div>
+          </div>
+        </div>
+
+        {/* Dedicated "Languages I Speak" Section */}
+        <div className="advisor-languages-banner">
+          <div className="advisor-languages-header">
+            <div className="languages-icon-badge">
+              <Languages size={24} />
+            </div>
+            <div className="languages-header-text">
+              <h3 className="languages-heading">{t.about.languagesSpoken.heading}</h3>
+              <p className="languages-subtext">{t.about.languagesSpoken.supportingText}</p>
+            </div>
+          </div>
+
+          <div className="languages-cards-grid">
+            {t.about.languagesSpoken.languages.map((lang, index) => (
+              <div key={index} className="language-spoken-card">
+                <div className="lang-card-header">
+                  <span className="lang-card-bullet"></span>
+                  <span className="lang-fluent-tag">Fluent Advisory</span>
+                </div>
+                <div className="lang-native-script">{lang.native}</div>
+                <div className="lang-english-title">{lang.english}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="languages-note">
+            <p>
+              *{t.about.languagesSpoken.note}
+            </p>
           </div>
         </div>
       </div>
