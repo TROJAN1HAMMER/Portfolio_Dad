@@ -1,10 +1,24 @@
 import React from 'react';
 import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Check } from 'lucide-react';
-import { BUSINESS_CONFIG, buildTelUrl, buildMailtoUrl, buildWhatsAppUrl } from '../config/business';
+import { BUSINESS_CONFIG, buildTelUrl, buildMailtoUrl } from '../config/business';
 import { ProfileAvatar } from './ProfileAvatar';
+import { useTranslation } from '../i18n/I18nContext';
 
 export const AboutAdvisor: React.FC = () => {
   const { advisor, associatedOrganizations } = BUSINESS_CONFIG;
+  const { t, buildLocalizedWhatsAppUrl } = useTranslation();
+
+  const getOrgCategory = (shortName: string) => {
+    switch (shortName) {
+      case 'Star Health':
+        return t.about.starCategory;
+      case 'SBI Life':
+        return t.about.sbiCategory;
+      case 'ICICI Lombard':
+      default:
+        return t.about.iciciCategory;
+    }
+  };
 
   return (
     <section id="about" className="section section-alt about-section">
@@ -16,11 +30,11 @@ export const AboutAdvisor: React.FC = () => {
               <ProfileAvatar size="about" />
 
               <div className="about-card-info">
-                <h3 className="about-card-name">{advisor.fullName}</h3>
-                <p className="about-card-title">{advisor.title}</p>
+                <h3 className="about-card-name">{t.header.advisorName}</h3>
+                <p className="about-card-title">{t.header.advisorRole}</p>
                 <div className="about-card-region">
                   <MapPin size={15} />
-                  <span>Serving Clients Across {advisor.serviceRegion}</span>
+                  <span>{t.about.servingAcross}</span>
                 </div>
 
                 <div className="about-card-contacts">
@@ -39,37 +53,25 @@ export const AboutAdvisor: React.FC = () => {
 
           {/* Right Column: Bio & Advisory Principles */}
           <div className="about-content-col">
-            <span className="section-tag">Dedicated Professional</span>
-            <h2 className="section-title">Meet {advisor.fullName}</h2>
+            <span className="section-tag">{t.about.tag}</span>
+            <h2 className="section-title">{t.about.title}</h2>
 
             <div className="about-bio-text">
-              <p className="about-lead-p">
-                Insurance is about preparing for life's uncertainties and protecting the
-                people and things that matter to you.
-              </p>
-              <p>
-                <strong>Balasubramanya MG</strong> helps individuals and families explore
-                insurance options across health, life and general insurance. By working with
-                Star Health Insurance, SBI Life Insurance and ICICI Lombard General Insurance, he can
-                help customers understand available policies, compare relevant features and
-                identify suitable next steps.
-              </p>
-              <p>
-                His approach is simple: <strong>understand your needs</strong>, <strong>explain the
-                available options clearly</strong>, and <strong>help you make an informed decision</strong>.
-              </p>
+              <p className="about-lead-p">{t.about.leadP}</p>
+              <p>{t.about.bioP1}</p>
+              <p>{t.about.bioP2}</p>
             </div>
 
             {/* Organizations Represented */}
             <div className="about-associations">
-              <h4 className="associations-title">Associated Organizations:</h4>
+              <h4 className="associations-title">{t.about.assocTitle}</h4>
               <div className="associations-grid">
                 {associatedOrganizations.map((org) => (
                   <div key={org.name} className="association-item">
                     <ShieldCheck size={18} className="assoc-icon" />
                     <div>
                       <strong className="assoc-name">{org.name}</strong>
-                      <span className="assoc-cat">{org.category}</span>
+                      <span className="assoc-cat">{getOrgCategory(org.shortName)}</span>
                     </div>
                   </div>
                 ))}
@@ -78,35 +80,29 @@ export const AboutAdvisor: React.FC = () => {
 
             {/* Core Advisory Commitments */}
             <div className="about-commitments">
-              <div className="commitment-pill">
-                <Check size={16} />
-                <span>Objective plan comparisons</span>
-              </div>
-              <div className="commitment-pill">
-                <Check size={16} />
-                <span>No aggressive sales tactics</span>
-              </div>
-              <div className="commitment-pill">
-                <Check size={16} />
-                <span>Prompt WhatsApp &amp; phone response</span>
-              </div>
+              {t.about.commitments.map((com, idx) => (
+                <div key={idx} className="commitment-pill">
+                  <Check size={16} />
+                  <span>{com}</span>
+                </div>
+              ))}
             </div>
 
             {/* Direct Connect Buttons */}
             <div className="about-actions">
               <a
-                href={buildWhatsAppUrl(`Hello ${advisor.fullName} sir, I would like to schedule a time to discuss my insurance requirements.`)}
+                href={buildLocalizedWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp"
               >
                 <MessageCircle size={17} />
-                <span>Chat on WhatsApp</span>
+                <span>{t.about.whatsappCta}</span>
               </a>
 
               <a href={buildTelUrl()} className="btn btn-outline">
                 <Phone size={17} />
-                <span>Direct Call</span>
+                <span>{t.about.directCall}</span>
               </a>
             </div>
           </div>

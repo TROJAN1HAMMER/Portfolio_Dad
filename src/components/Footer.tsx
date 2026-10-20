@@ -1,12 +1,15 @@
+import React from 'react';
 import { Phone, Mail, Shield } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl, buildMailtoUrl } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 interface FooterProps {
   onOpenPrivacyModal: (tab: 'privacy' | 'disclaimer') => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
-  const { advisor, associatedOrganizations, disclaimer } = BUSINESS_CONFIG;
+  const { advisor, associatedOrganizations } = BUSINESS_CONFIG;
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -23,6 +26,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
     }
   };
 
+  const getOrgCategory = (shortName: string) => {
+    switch (shortName) {
+      case 'Star Health':
+        return t.about.starCategory;
+      case 'SBI Life':
+        return t.about.sbiCategory;
+      case 'ICICI Lombard':
+      default:
+        return t.about.iciciCategory;
+    }
+  };
+
   return (
     <footer className="site-footer">
       <div className="container">
@@ -34,11 +49,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
               <span className="brand-initials">{advisor.initials}</span>
               <Shield size={14} />
             </div>
-            <h3 className="footer-brand-name">{advisor.fullName}</h3>
-            <p className="footer-brand-title">{advisor.title}</p>
-            <p className="footer-brand-desc">
-              Providing personalized, objective insurance guidance for individuals and families across India.
-            </p>
+            <h3 className="footer-brand-name">{t.header.advisorName}</h3>
+            <p className="footer-brand-title">{t.header.advisorRole}</p>
+            <p className="footer-brand-desc">{t.footer.brandDesc}</p>
             <div className="footer-contact-links">
               <a href={buildTelUrl()} className="footer-contact-item">
                 <Phone size={15} />
@@ -53,39 +66,39 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
 
           {/* Quick Navigation Links */}
           <div className="footer-links-col">
-            <h4 className="footer-heading">Quick Links</h4>
+            <h4 className="footer-heading">{t.footer.quickLinks}</h4>
             <ul className="footer-links-list">
               <li>
-                <a href="#home" onClick={(e) => handleNavClick(e, '#home')}>Home</a>
+                <a href="#home" onClick={(e) => handleNavClick(e, '#home')}>{t.header.navHome}</a>
               </li>
               <li>
-                <a href="#about" onClick={(e) => handleNavClick(e, '#about')}>About Advisor</a>
+                <a href="#about" onClick={(e) => handleNavClick(e, '#about')}>{t.header.navAbout}</a>
               </li>
               <li>
-                <a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Insurance Services</a>
+                <a href="#services" onClick={(e) => handleNavClick(e, '#services')}>{t.header.navServices}</a>
               </li>
               <li>
-                <a href="#why-me" onClick={(e) => handleNavClick(e, '#why-me')}>Why Choose Me</a>
+                <a href="#why-me" onClick={(e) => handleNavClick(e, '#why-me')}>{t.header.navWhyMe}</a>
               </li>
               <li>
-                <a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>Frequently Asked Questions</a>
+                <a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>{t.header.navFaq}</a>
               </li>
               <li>
-                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Contact &amp; Enquiries</a>
+                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>{t.header.navContact}</a>
               </li>
             </ul>
           </div>
 
           {/* Associated Organizations */}
           <div className="footer-orgs-col">
-            <h4 className="footer-heading">Associated Insurers</h4>
+            <h4 className="footer-heading">{t.footer.associatedInsurers}</h4>
             <ul className="footer-orgs-list">
               {associatedOrganizations.map((org) => (
                 <li key={org.name} className="footer-org-item">
                   <span className="org-bullet"></span>
                   <div>
                     <strong>{org.name}</strong>
-                    <span className="org-category-desc">{org.category}</span>
+                    <span className="org-category-desc">{getOrgCategory(org.shortName)}</span>
                   </div>
                 </li>
               ))}
@@ -94,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
 
           {/* Legal Links & Quick Actions */}
           <div className="footer-legal-col">
-            <h4 className="footer-heading">Compliance &amp; Policy</h4>
+            <h4 className="footer-heading">{t.footer.complianceHeading}</h4>
             <ul className="footer-links-list">
               <li>
                 <button
@@ -102,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
                   onClick={() => onOpenPrivacyModal('privacy')}
                   className="footer-link-button"
                 >
-                  Privacy Notice
+                  {t.footer.privacyNotice}
                 </button>
               </li>
               <li>
@@ -111,12 +124,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
                   onClick={() => onOpenPrivacyModal('disclaimer')}
                   className="footer-link-button"
                 >
-                  Legal Disclaimer
+                  {t.footer.legalDisclaimer}
                 </button>
               </li>
             </ul>
             <div className="footer-badge-callout">
-              <span>Verified Contact:</span>
+              <span>{t.footer.verifiedContact}</span>
               <strong>+91 {advisor.phoneRaw}</strong>
             </div>
           </div>
@@ -124,17 +137,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
 
         {/* Regulatory Disclaimer Text Box */}
         <div className="footer-disclaimer-box">
-          <p className="disclaimer-title">Regulatory Disclosure &amp; Notice:</p>
-          <p className="disclaimer-text">{disclaimer}</p>
+          <p className="disclaimer-title">{t.footer.disclaimerTitle}</p>
+          <p className="disclaimer-text">{t.footer.disclaimerText}</p>
         </div>
 
         {/* Copyright Bar */}
         <div className="footer-bottom-bar">
           <p className="copyright-text">
-            &copy; {currentYear} {advisor.fullName} — Insurance Advisor. All rights reserved.
+            &copy; {currentYear} {t.footer.copyright}
           </p>
           <p className="crafted-text">
-            <span>Built with integrity for personal insurance guidance</span>
+            <span>{t.footer.builtWith}</span>
           </p>
         </div>
       </div>

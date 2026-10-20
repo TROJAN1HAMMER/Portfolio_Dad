@@ -1,30 +1,17 @@
 import React from 'react';
-import { HeartPulse, Shield, Car, Check, ArrowRight, MessageCircle } from 'lucide-react';
-import { BUSINESS_CONFIG, buildWhatsAppUrl, type InsuranceServiceConfig } from '../config/business';
+import { HeartPulse, Shield, Car, Check, ArrowRight, MessageCircle, Sparkles, Baby, FileCheck } from 'lucide-react';
+import { useTranslation } from '../i18n/I18nContext';
 
 interface InsuranceServicesProps {
   onSelectCategory: (category: string) => void;
 }
 
 export const InsuranceServices: React.FC<InsuranceServicesProps> = ({ onSelectCategory }) => {
-  const { services } = BUSINESS_CONFIG;
+  const { t, buildLocalizedWhatsAppUrl } = useTranslation();
 
-  const getServiceIcon = (id: string) => {
-    switch (id) {
-      case 'health':
-        return <HeartPulse className="service-header-icon health" size={28} />;
-      case 'life':
-        return <Shield className="service-header-icon life" size={28} />;
-      case 'general':
-      default:
-        return <Car className="service-header-icon general" size={28} />;
-    }
-  };
+  const handleCardCta = (defaultCategory: string) => {
+    onSelectCategory(defaultCategory);
 
-  const handleCardCta = (service: InsuranceServiceConfig) => {
-    // Notify parent to preselect category in contact form
-    onSelectCategory(service.defaultCategory);
-    
     // Smoothly scroll to contact section
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -42,81 +29,197 @@ export const InsuranceServices: React.FC<InsuranceServicesProps> = ({ onSelectCa
     <section id="services" className="section section-alt services-section">
       <div className="container">
         <div className="section-header">
-          <span className="section-tag green">Comprehensive Portfolio</span>
-          <h2 className="section-title">Insurance Solutions for Every Stage of Life</h2>
-          <p className="section-subtitle">
-            Explore the available insurance categories and get help understanding which
-            options may fit your circumstances.
-          </p>
+          <span className="section-tag green">{t.services.tag}</span>
+          <h2 className="section-title">{t.services.title}</h2>
+          <p className="section-subtitle">{t.services.subtitle}</p>
         </div>
 
         <div className="services-grid">
-          {services.map((service) => {
-            const whatsAppEnquiry = `Hello Balasubramanya sir, I would like to explore ${service.title} (${service.organization}) for my requirements.`;
-
-            return (
-              <div key={service.id} className={`service-card service-card-${service.id}`}>
-                <div className="service-card-top">
-                  <div className="service-icon-box">
-                    {getServiceIcon(service.id)}
-                  </div>
-                  <div className="service-org-badge">
-                    <span>{service.organization}</span>
-                  </div>
-                </div>
-
-                <div className="service-card-body">
-                  <h3 className="service-card-title">{service.title}</h3>
-                  <p className="service-card-tagline">{service.tagline}</p>
-                  <p className="service-card-desc">{service.description}</p>
-
-                  <div className="service-features-list">
-                    <span className="features-header">What we help you explore:</span>
-                    <ul>
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="feature-item">
-                          <Check size={16} className="feature-check" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="service-card-actions">
-                  <button
-                    type="button"
-                    onClick={() => handleCardCta(service)}
-                    className="btn btn-primary service-cta-btn"
-                    aria-label={`${service.ctaLabel} - Fill enquiry form`}
-                  >
-                    <span>{service.ctaLabel}</span>
-                    <ArrowRight size={16} />
-                  </button>
-
-                  <a
-                    href={buildWhatsAppUrl(whatsAppEnquiry)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline btn-sm service-whatsapp-link"
-                    title={`Send WhatsApp enquiry about ${service.title}`}
-                  >
-                    <MessageCircle size={15} />
-                    <span>WhatsApp Enquiry</span>
-                  </a>
-                </div>
+          {/* Card 1: Star Health Insurance */}
+          <div className="service-card service-card-health">
+            <div className="service-card-top">
+              <div className="service-icon-box">
+                <HeartPulse className="service-header-icon health" size={28} />
               </div>
-            );
-          })}
+              <div className="service-org-badge">
+                <span>{t.services.starHealth.org}</span>
+              </div>
+            </div>
+
+            <div className="service-card-body">
+              <h3 className="service-card-title">{t.services.starHealth.title}</h3>
+              <p className="service-card-tagline">{t.services.starHealth.tagline}</p>
+              <p className="service-card-desc">{t.services.starHealth.desc}</p>
+
+              <div className="service-features-list">
+                <span className="features-header">{t.services.whatWeHelpExplore}</span>
+                <ul>
+                  {t.services.starHealth.features.map((feature, idx) => (
+                    <li key={idx} className="feature-item">
+                      <Check size={16} className="feature-check" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="service-card-actions">
+              <button
+                type="button"
+                onClick={() => handleCardCta('Health')}
+                className="btn btn-primary service-cta-btn"
+                aria-label={`${t.services.starHealth.cta} - Select category`}
+              >
+                <span>{t.services.starHealth.cta}</span>
+                <ArrowRight size={16} />
+              </button>
+
+              <a
+                href={buildLocalizedWhatsAppUrl(t.services.starHealth.title, t.services.starHealth.org)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline btn-sm service-whatsapp-link"
+                title={`Send WhatsApp enquiry about ${t.services.starHealth.title}`}
+              >
+                <MessageCircle size={15} />
+                <span>{t.services.whatsappEnquiryBtn}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 2: SBI Life Insurance (with Term Insurance & Children's Plans explicitly highlighted) */}
+          <div className="service-card service-card-life">
+            <div className="service-card-top">
+              <div className="service-icon-box">
+                <Shield className="service-header-icon life" size={28} />
+              </div>
+              <div className="service-org-badge">
+                <span>{t.services.sbiLife.org}</span>
+              </div>
+            </div>
+
+            <div className="service-card-body">
+              <div className="service-card-highlight-badges">
+                <span className="highlight-pill term">
+                  <FileCheck size={13} />
+                  {t.services.sbiLife.badgeTerm}
+                </span>
+                <span className="highlight-pill child">
+                  <Baby size={13} />
+                  {t.services.sbiLife.badgeChild}
+                </span>
+              </div>
+
+              <h3 className="service-card-title">{t.services.sbiLife.title}</h3>
+              <p className="service-card-tagline">{t.services.sbiLife.tagline}</p>
+              <p className="service-card-desc">{t.services.sbiLife.desc}</p>
+
+              <div className="service-features-list">
+                <span className="features-header">{t.services.whatWeHelpExplore}</span>
+                <ul>
+                  {t.services.sbiLife.features.map((feature, idx) => (
+                    <li key={idx} className="feature-item">
+                      <Check size={16} className="feature-check" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="service-card-actions">
+              <button
+                type="button"
+                onClick={() => handleCardCta('Term')}
+                className="btn btn-primary service-cta-btn"
+                aria-label={`${t.services.sbiLife.cta} - Select category`}
+              >
+                <span>{t.services.sbiLife.cta}</span>
+                <ArrowRight size={16} />
+              </button>
+
+              <a
+                href={buildLocalizedWhatsAppUrl(t.services.sbiLife.title, t.services.sbiLife.org)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline btn-sm service-whatsapp-link"
+                title={`Send WhatsApp enquiry about ${t.services.sbiLife.title}`}
+              >
+                <MessageCircle size={15} />
+                <span>{t.services.whatsappEnquiryBtn}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 3: ICICI Lombard General Insurance (with Health Insurance explicitly included) */}
+          <div className="service-card service-card-general">
+            <div className="service-card-top">
+              <div className="service-icon-box">
+                <Car className="service-header-icon general" size={28} />
+              </div>
+              <div className="service-org-badge">
+                <span>{t.services.iciciLombard.org}</span>
+              </div>
+            </div>
+
+            <div className="service-card-body">
+              <div className="service-card-highlight-badges">
+                <span className="highlight-pill health-addon">
+                  <HeartPulse size={13} />
+                  {t.services.iciciLombard.badgeHealth}
+                </span>
+                <span className="highlight-pill general-addon">
+                  <Sparkles size={13} />
+                  Motor &amp; Travel
+                </span>
+              </div>
+
+              <h3 className="service-card-title">{t.services.iciciLombard.title}</h3>
+              <p className="service-card-tagline">{t.services.iciciLombard.tagline}</p>
+              <p className="service-card-desc">{t.services.iciciLombard.desc}</p>
+
+              <div className="service-features-list">
+                <span className="features-header">{t.services.whatWeHelpExplore}</span>
+                <ul>
+                  {t.services.iciciLombard.features.map((feature, idx) => (
+                    <li key={idx} className="feature-item">
+                      <Check size={16} className="feature-check" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="service-card-actions">
+              <button
+                type="button"
+                onClick={() => handleCardCta('Motor')}
+                className="btn btn-primary service-cta-btn"
+                aria-label={`${t.services.iciciLombard.cta} - Select category`}
+              >
+                <span>{t.services.iciciLombard.cta}</span>
+                <ArrowRight size={16} />
+              </button>
+
+              <a
+                href={buildLocalizedWhatsAppUrl(t.services.iciciLombard.title, t.services.iciciLombard.org)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline btn-sm service-whatsapp-link"
+                title={`Send WhatsApp enquiry about ${t.services.iciciLombard.title}`}
+              >
+                <MessageCircle size={15} />
+                <span>{t.services.whatsappEnquiryBtn}</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Informative Note */}
         <div className="services-info-callout">
-          <p>
-            <strong>Transparent Advisory:</strong> All policy benefits, eligibility, premiums,
-            and terms are determined by the respective insurer (Star Health, SBI Life, or ICICI Lombard).
-            Balasubramanya MG provides independent assistance in understanding and comparing available options.
-          </p>
+          <p>{t.services.disclaimerCallout}</p>
         </div>
       </div>
     </section>

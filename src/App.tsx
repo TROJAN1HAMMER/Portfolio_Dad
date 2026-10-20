@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { I18nProvider } from './i18n/I18nContext';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { InsuranceServices } from './components/InsuranceServices';
@@ -12,7 +13,7 @@ import { FloatingContactActions } from './components/FloatingContactActions';
 import { PrivacyModal } from './components/PrivacyModal';
 import './App.css';
 
-export const App: React.FC = () => {
+export const AppContent: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Health');
   const [privacyModalOpen, setPrivacyModalOpen] = useState<boolean>(false);
   const [privacyModalTab, setPrivacyModalTab] = useState<'privacy' | 'disclaimer'>('privacy');
@@ -71,6 +72,14 @@ export const App: React.FC = () => {
         initialTab={privacyModalTab}
       />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <I18nProvider>
+      <AppContent />
+    </I18nProvider>
   );
 };
 

@@ -2039,3 +2039,357 @@
   justify-content: flex-end;
   background-color: var(--color-bg-soft);
 }
+
+/* --------------------------------------------------------------------------
+   Language Selector Styles (Header & Mobile Drawer)
+   -------------------------------------------------------------------------- */
+.language-selector-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-selector-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  background-color: var(--color-bg-soft);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-navy);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lang-selector-btn:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.lang-globe-icon {
+  color: var(--color-blue);
+  flex-shrink: 0;
+}
+
+.lang-current-label {
+  font-family: inherit;
+}
+
+.lang-chevron {
+  transition: transform var(--transition-fast);
+  color: var(--color-text-light);
+}
+
+.lang-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 150;
+  min-width: 170px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  animation: fadeInDown 150ms ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lang-option-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.lang-option-btn:hover {
+  background-color: var(--color-blue-soft);
+}
+
+.lang-option-btn.selected {
+  background-color: var(--color-blue-soft);
+  font-weight: 700;
+}
+
+.lang-option-names {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.lang-native-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.lang-english-name {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.lang-check-icon {
+  color: var(--color-blue);
+  flex-shrink: 0;
+}
+
+/* Mobile Drawer Language Section */
+.mobile-language-section {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  margin-bottom: 1.25rem;
+}
+
+.mobile-lang-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+  margin-bottom: 0.75rem;
+}
+
+.mobile-lang-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.mobile-lang-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.35rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-bg-soft);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.mobile-lang-btn.active {
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.mobile-lang-btn .native-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.mobile-lang-btn.active .native-text {
+  color: var(--color-white);
+}
+
+.mobile-lang-btn .english-sub {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+}
+
+.mobile-lang-btn.active .english-sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --------------------------------------------------------------------------
+   Service Card Highlight Badges (Term, Child, Health under ICICI)
+   -------------------------------------------------------------------------- */
+.service-card-highlight-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.highlight-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.highlight-pill.term {
+  background-color: #EBF2FD;
+  color: #174EA6;
+  border: 1px solid #C7DCF8;
+}
+
+.highlight-pill.child {
+  background-color: #FEF9E6;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
+.highlight-pill.health-addon {
+  background-color: #E7F6ED;
+  color: #18863B;
+  border: 1px solid #A7F3D0;
+}
+
+.highlight-pill.general-addon {
+  background-color: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layout Safeguards (320px, 375px, 425px, 768px, 1024px, 1440px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Prevent sticky bottom action bar from covering footer, content or forms */
+  .site-wrapper {
+    padding-bottom: 74px;
+  }
+
+  /* Tap target accessibility */
+  .btn,
+  .form-input,
+  .form-select,
+  .form-textarea,
+  .sticky-action-btn {
+    min-height: 44px;
+  }
+
+  /* Header adjustments for compact mobile view */
+  .header-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .brand-text {
+    max-width: 155px;
+  }
+
+  .brand-name {
+    font-size: 0.98rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-descriptor {
+    font-size: 0.7rem;
+  }
+
+  .hero-floating-card {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 1rem;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .hero-trust-bar {
+    max-width: 100%;
+  }
+
+  .about-actions .btn {
+    width: 100%;
+  }
+
+  .how-step-card {
+    padding: 1.5rem;
+  }
+
+  .contact-methods-grid {
+    gap: 0.75rem;
+  }
+
+  .contact-card-item {
+    padding: 1rem;
+  }
+}
+
+/* Extra small mobile screens (320px - 360px) */
+@media (max-width: 360px) {
+  .container {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .brand-badge {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+
+  .brand-text {
+    max-width: 125px;
+  }
+
+  .brand-name {
+    font-size: 0.9rem;
+  }
+
+  .brand-descriptor {
+    display: none;
+  }
+
+  .lang-selector-btn {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .form-card {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .phone-prefix {
+    padding: 0 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .contact-methods-radio-group {
+    flex-direction: column;
+  }
+}
+

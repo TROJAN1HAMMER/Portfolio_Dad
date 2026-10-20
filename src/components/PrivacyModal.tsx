@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { X, ShieldAlert, Lock, Info } from 'lucide-react';
-import { BUSINESS_CONFIG } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 interface PrivacyModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
   initialTab = 'privacy',
 }) => {
   const [activeTab, setActiveTab] = React.useState<'privacy' | 'disclaimer'>(initialTab);
-  const { advisor, disclaimer } = BUSINESS_CONFIG;
+  const { t } = useTranslation();
 
   useEffect(() => {
     setActiveTab(initialTab);
@@ -52,7 +52,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
               onClick={() => setActiveTab('privacy')}
             >
               <Lock size={16} />
-              <span>Privacy Notice</span>
+              <span>{t.privacyModal.privacyTab}</span>
             </button>
             <button
               type="button"
@@ -60,14 +60,14 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
               onClick={() => setActiveTab('disclaimer')}
             >
               <Info size={16} />
-              <span>Legal Disclaimer</span>
+              <span>{t.privacyModal.disclaimerTab}</span>
             </button>
           </div>
           <button
             type="button"
             className="modal-close-btn"
             onClick={onClose}
-            aria-label="Close dialog"
+            aria-label={t.privacyModal.closeBtn}
           >
             <X size={20} />
           </button>
@@ -77,70 +77,50 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
           {activeTab === 'privacy' ? (
             <div className="modal-tab-content">
               <h3 id="modal-title" className="modal-content-title">
-                Privacy Notice &amp; Information Handling
+                {t.privacyModal.privacyTitle}
               </h3>
-              <p>
-                Your privacy is respected. This website operates as a direct client-to-advisor
-                communication interface for <strong>{advisor.fullName}</strong>.
-              </p>
-              <h4>1. How Enquiry Information is Used</h4>
-              <p>
-                When you initiate an enquiry through WhatsApp, email, or telephone:
-              </p>
+              <p>{t.privacyModal.privacyIntro}</p>
+
+              <h4>{t.privacyModal.h1Title}</h4>
               <ul>
-                <li>Your name, phone number, and stated insurance interests are used strictly to reply to your enquiry and provide requested guidance.</li>
-                <li>Your details are not sold, leased, or transferred to telemarketing agencies or third parties.</li>
-                <li>No database storage or personal profile tracking is performed on this website.</li>
+                {t.privacyModal.h1List.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
               </ul>
-              <h4>2. Direct Communication Channels</h4>
-              <p>
-                The contact form prepares your enquiry message and hands it off directly to
-                WhatsApp or your default email client. Information is transmitted through those
-                respective platforms governed by their own end-to-end security and privacy standards.
-              </p>
-              <h4>3. Contact for Privacy Questions</h4>
-              <p>
-                If you have questions regarding how your details are handled, you may reach out directly
-                to {advisor.fullName} at <a href={`mailto:${advisor.email}`}>{advisor.email}</a> or{' '}
-                <a href={`tel:+91${advisor.phoneRaw}`}>{advisor.phoneFormatted}</a>.
-              </p>
+
+              <h4>{t.privacyModal.h2Title}</h4>
+              <p>{t.privacyModal.h2Desc}</p>
+
+              <h4>{t.privacyModal.h3Title}</h4>
+              <p>{t.privacyModal.h3Desc}</p>
             </div>
           ) : (
             <div className="modal-tab-content">
               <h3 id="modal-title" className="modal-content-title">
-                Regulatory &amp; Advisory Disclaimer
+                {t.privacyModal.disclaimerTitle}
               </h3>
               <div className="disclaimer-alert-box">
                 <ShieldAlert size={22} className="alert-icon" />
                 <p>
-                  <strong>Important Notice:</strong> Please read this disclaimer before evaluating any insurance product.
+                  <strong>{t.privacyModal.alertTitle}</strong>
                 </p>
               </div>
-              <p>{disclaimer}</p>
-              <h4>Independent Advisory Disclosure</h4>
-              <p>
-                Balasubramanya MG is an independent insurance advisor assisting individuals and
-                families with insurance products associated with Star Health and Allied Insurance,
-                SBI Life Insurance, and ICICI Lombard General Insurance.
-              </p>
-              <p>
-                This website is not the official website of any insurer, nor is it operated or
-                endorsed as a joint venture with any insurance company. All company names, logos,
-                and trademarks belong to their respective corporate owners.
-              </p>
-              <h4>No Guarantee of Claim or Coverage</h4>
-              <p>
-                Information provided on this website does not constitute a legal contract, guarantee
-                of policy issuance, or guarantee of claim settlement. Policy issuance and claim approvals
-                are exclusively at the discretion of the underwriting insurer.
-              </p>
+
+              <p>{t.footer.disclaimerText}</p>
+
+              <h4>{t.privacyModal.independentTitle}</h4>
+              <p>{t.privacyModal.independentDesc1}</p>
+              <p>{t.privacyModal.independentDesc2}</p>
+
+              <h4>{t.privacyModal.guaranteeTitle}</h4>
+              <p>{t.privacyModal.guaranteeDesc}</p>
             </div>
           )}
         </div>
 
         <div className="modal-footer">
           <button type="button" onClick={onClose} className="btn btn-primary btn-sm">
-            Close Notice
+            {t.privacyModal.closeBtn}
           </button>
         </div>
       </div>

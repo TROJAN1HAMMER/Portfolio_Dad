@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
-import { BUSINESS_CONFIG } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 export const FAQSection: React.FC = () => {
-  const { faqs } = BUSINESS_CONFIG;
+  const { t } = useTranslation();
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
 
   const toggleAccordion = (index: number) => {
@@ -16,16 +16,14 @@ export const FAQSection: React.FC = () => {
         <div className="section-header">
           <span className="section-tag">
             <HelpCircle size={14} />
-            Common Questions
+            {t.faq.tag}
           </span>
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          <p className="section-subtitle">
-            Clear, honest answers about discussing your insurance requirements and exploring available options.
-          </p>
+          <h2 className="section-title">{t.faq.title}</h2>
+          <p className="section-subtitle">{t.faq.subtitle}</p>
         </div>
 
-        <div className="faq-accordion" role="region" aria-label="Frequently Asked Questions Accordion">
-          {faqs.map((faq, index) => {
+        <div className="faq-accordion" role="region" aria-label={t.faq.title}>
+          {t.faq.items.map((faq, index) => {
             const isOpen = openIndex === index;
             const headingId = `faq-heading-${index}`;
             const panelId = `faq-panel-${index}`;
@@ -44,7 +42,7 @@ export const FAQSection: React.FC = () => {
                     onClick={() => toggleAccordion(index)}
                     className="faq-button"
                   >
-                    <span className="faq-question-text">{faq.question}</span>
+                    <span className="faq-question-text">{faq.q}</span>
                     <ChevronDown
                       size={20}
                       className={`faq-chevron ${isOpen ? 'rotated' : ''}`}
@@ -61,7 +59,7 @@ export const FAQSection: React.FC = () => {
                   hidden={!isOpen}
                 >
                   <div className="faq-answer-inner">
-                    <p>{faq.answer}</p>
+                    <p>{faq.a}</p>
                   </div>
                 </div>
               </div>
@@ -71,9 +69,7 @@ export const FAQSection: React.FC = () => {
 
         {/* Small footer note for FAQ */}
         <div className="faq-disclaimer-callout">
-          <p>
-            Have a question that is not covered above? Feel free to send a quick message directly on WhatsApp or call anytime.
-          </p>
+          <p>{t.faq.note}</p>
         </div>
       </div>
     </section>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
-import { BUSINESS_CONFIG, buildTelUrl, buildWhatsAppUrl } from '../config/business';
+import { BUSINESS_CONFIG, buildTelUrl } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 export const FloatingContactActions: React.FC = () => {
   const { advisor } = BUSINESS_CONFIG;
-
-  const quickMessage = `Hello Balasubramanya sir, I would like to consult with you regarding insurance options.`;
+  const { t, buildLocalizedWhatsAppUrl } = useTranslation();
 
   return (
     <>
@@ -17,32 +17,32 @@ export const FloatingContactActions: React.FC = () => {
           aria-label={`Call Balasubramanya MG at ${advisor.phoneFormatted}`}
         >
           <Phone size={18} />
-          <span>Call Now</span>
+          <span>{t.floating.callNow}</span>
         </a>
 
         <a
-          href={buildWhatsAppUrl(quickMessage)}
+          href={buildLocalizedWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
           className="sticky-action-btn sticky-whatsapp"
           aria-label="Send WhatsApp enquiry"
         >
           <MessageCircle size={18} />
-          <span>WhatsApp</span>
+          <span>{t.floating.whatsapp}</span>
         </a>
       </aside>
 
       {/* Desktop Floating WhatsApp Button (Visible on screens >= 768px) */}
       <div className="desktop-floating-actions" aria-hidden="true">
         <a
-          href={buildWhatsAppUrl(quickMessage)}
+          href={buildLocalizedWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
           className="floating-wa-btn"
-          title="Chat directly on WhatsApp"
+          title={t.floating.desktopTooltip}
         >
           <MessageCircle size={26} />
-          <span className="floating-tooltip">Chat with Advisor</span>
+          <span className="floating-tooltip">{t.floating.desktopTooltip}</span>
         </a>
       </div>
     </>

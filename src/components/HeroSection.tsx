@@ -1,12 +1,12 @@
 import React from 'react';
 import { Phone, MessageCircle, ShieldCheck, HeartPulse, Sparkles } from 'lucide-react';
-import { BUSINESS_CONFIG, buildTelUrl, buildWhatsAppUrl } from '../config/business';
+import { BUSINESS_CONFIG, buildTelUrl } from '../config/business';
 import { ProfileAvatar } from './ProfileAvatar';
+import { useTranslation } from '../i18n/I18nContext';
 
 export const HeroSection: React.FC = () => {
   const { advisor, associatedOrganizations } = BUSINESS_CONFIG;
-
-  const heroWhatsAppText = `Hello Balasubramanya sir, I would like to explore insurance options for my family.`;
+  const { t, buildLocalizedWhatsAppUrl } = useTranslation();
 
   return (
     <section id="home" className="hero-section">
@@ -16,23 +16,18 @@ export const HeroSection: React.FC = () => {
           <div className="hero-eyebrow">
             <span className="eyebrow-badge">
               <Sparkles size={14} className="eyebrow-icon" />
-              YOUR TRUSTED INSURANCE ADVISOR
+              {t.hero.eyebrow}
             </span>
           </div>
 
           <h1 className="hero-title">
-            Secure Today. <span className="highlight-text">Protect Tomorrow.</span>
+            {t.hero.titleStart}
+            <span className="highlight-text">{t.hero.titleHighlight}</span>
           </h1>
 
-          <h2 className="hero-subtitle">
-            Insurance Solutions for You and Your Family
-          </h2>
+          <h2 className="hero-subtitle">{t.hero.subtitle}</h2>
 
-          <p className="hero-description">
-            Choosing insurance doesn't have to be complicated. Get personal guidance to
-            explore health, life and general insurance options based on your needs,
-            priorities and budget.
-          </p>
+          <p className="hero-description">{t.hero.description}</p>
 
           {/* Primary Action Buttons */}
           <div className="hero-cta-group">
@@ -42,18 +37,18 @@ export const HeroSection: React.FC = () => {
               aria-label={`Call Balasubramanya MG at ${advisor.phoneRaw}`}
             >
               <Phone size={19} />
-              <span>Call Now — {advisor.phoneRaw}</span>
+              <span>{t.hero.callCta}</span>
             </a>
 
             <a
-              href={buildWhatsAppUrl(heroWhatsAppText)}
+              href={buildLocalizedWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-whatsapp btn-lg hero-cta-whatsapp"
               aria-label="Chat with Balasubramanya MG on WhatsApp"
             >
               <MessageCircle size={19} />
-              <span>Chat on WhatsApp</span>
+              <span>{t.hero.whatsappCta}</span>
             </a>
           </div>
 
@@ -61,13 +56,13 @@ export const HeroSection: React.FC = () => {
           <div className="hero-trust-bar">
             <ShieldCheck size={20} className="trust-icon" />
             <p className="trust-text">
-              <strong>Personal guidance.</strong> Clear explanations. Support when you need it.
+              <strong>{t.hero.trustGuidance}</strong> {t.hero.trustText}
             </p>
           </div>
 
           {/* Associated Organizations Quick Badges */}
           <div className="hero-partners">
-            <span className="partners-label">Assisting with products from:</span>
+            <span className="partners-label">{t.hero.assistingWith}</span>
             <div className="partners-pills">
               {associatedOrganizations.map((org) => (
                 <span key={org.name} className="partner-pill">
@@ -81,7 +76,7 @@ export const HeroSection: React.FC = () => {
         {/* Right Column: Dedicated Advisor Portrait Frame */}
         <div className="hero-media">
           <div className="hero-avatar-card">
-            {/* Dedicated Profile Avatar with placeholder and future photo integration */}
+            {/* Dedicated Profile Avatar with dad's photo */}
             <ProfileAvatar size="hero" />
 
             {/* Small floating insurance coverage card */}
@@ -90,15 +85,15 @@ export const HeroSection: React.FC = () => {
                 <HeartPulse size={20} />
               </div>
               <div className="floating-card-text">
-                <span className="floating-card-title">Comprehensive Coverage</span>
-                <span className="floating-card-subtitle">Health | Life | General Insurance</span>
+                <span className="floating-card-title">{t.hero.floatingCoverageTitle}</span>
+                <span className="floating-card-subtitle">{t.hero.floatingCoverageSub}</span>
               </div>
             </div>
 
             {/* Advisory Service Region Tag */}
             <div className="hero-region-badge">
               <span className="region-dot"></span>
-              <span>Advising Across India</span>
+              <span>{t.hero.regionBadge}</span>
             </div>
           </div>
         </div>

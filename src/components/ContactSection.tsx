@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Mail, MessageCircle, Send, CheckCircle, AlertCircle, ArrowUpRight } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl, buildMailtoUrl } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 interface ContactSectionProps {
   selectedCategory: string;
@@ -12,11 +13,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   onOpenPrivacyModal,
 }) => {
   const { advisor } = BUSINESS_CONFIG;
+  const { t, language } = useTranslation();
 
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [category, setCategory] = useState(selectedCategory || 'Health');
+  const [category, setCategory] = useState(selectedCategory || 'HealthStar');
   const [preferredMethod, setPreferredMethod] = useState<'WhatsApp' | 'Call' | 'Email'>('WhatsApp');
   const [message, setMessage] = useState('');
   const [consent, setConsent] = useState(false);
@@ -28,7 +30,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   // Sync category if user clicked a service card CTA
   useEffect(() => {
     if (selectedCategory) {
-      setCategory(selectedCategory);
+      if (selectedCategory === 'Health') {
+        setCategory('HealthStar');
+      } else if (selectedCategory === 'Term' || selectedCategory === 'Life') {
+        setCategory('TermSbi');
+      } else if (selectedCategory === 'Motor') {
+        setCategory('MotorIcici');
+      } else {
+        setCategory(selectedCategory);
+      }
     }
   }, [selectedCategory]);
 
@@ -36,22 +46,58 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     const errs: { [key: string]: string } = {};
 
     if (!fullName.trim()) {
-      errs.fullName = 'Please enter your full name.';
+      errs.fullName = t.contact.errors.nameRequired;
     }
 
     const cleanPhone = phone.replace(/\D/g, '');
     if (!cleanPhone) {
-      errs.phone = 'Please provide your mobile number.';
+      errs.phone = t.contact.errors.phoneRequired;
     } else if (cleanPhone.length < 10) {
-      errs.phone = 'Please enter a valid 10-digit mobile number.';
+      errs.phone = t.contact.errors.phoneInvalid;
     }
 
     if (!consent) {
-      errs.consent = 'You must agree to be contacted regarding this enquiry.';
+      errs.consent = t.contact.errors.consentRequired;
     }
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
+  };
+
+  const getCategoryLabel = (catKey: string): string => {
+    const cats = t.contact.categories;
+    switch (catKey) {
+      case 'HealthStar':
+        return cats.healthStar;
+      case 'HealthIcici':
+        return cats.healthIcici;
+      case 'LifeSbi':
+        return cats.lifeSbi;
+      case 'TermSbi':
+        return cats.termSbi;
+      case 'ChildSbi':
+        return cats.childSbi;
+      case 'MotorIcici':
+        return cats.motorIcici;
+      case 'TravelIcici':
+        return cats.travelIcici;
+      case 'HomeIcici':
+        return cats.homeIcici;
+      case 'Other':
+      default:
+        return cats.otherGeneral;
+    }
+  };
+
+  const getMethodLabel = (m: 'WhatsApp' | 'Call' | 'Email'): string => {
+    switch (m) {
+      case 'WhatsApp':
+        return t.contact.methods.whatsapp;
+      case 'Call':
+        return t.contact.methods.call;
+      case 'Email':
+        return t.contact.methods.email;
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -61,18 +107,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       return;
     }
 
+    const categoryText = getCategoryLabel(category);
+    const methodText = getMethodLabel(preferredMethod);
+
+    // Multilingual inquiry header based on selected language
+    let greeting = `*New Insurance Enquiry for Balasubramanya MG*`;
+    if (language === 'hi') greeting = `*बालसुब्रमण्य एमजी के लिए नई बीमा पूछताछ*`;
+    if (language === 'ml') greeting = `*ബാലസുബ്രഹ്മണ്യ എം ജിക്ക് പുതിയ ഇൻഷുറൻസ് അന്വേഷണം*`;
+    if (language === 'kn') greeting = `*ಬಾಲಸುಬ್ರಹ್ಮಣ್ಯ ಎಂ ಜಿ ಅವರಿಗೆ ಹೊಸ ವಿಮಾ ವಿಚಾರಣೆ*`;
+    if (language === 'ta') greeting = `*பாலசுப்ரமண்யா எம் ஜி அவர்களுக்கு புதிய காப்பீட்டு விசாரணை*`;
+
     // Build the formatted enquiry text
     const textLines = [
-      `*New Insurance Enquiry for Balasubramanya MG*`,
+      greeting,
       `---------------------------------`,
       `*Name:* ${fullName.trim()}`,
       `*Phone:* ${phone.trim()}`,
       email.trim() ? `*Email:* ${email.trim()}` : null,
-      `*Interested In:* ${category} Insurance`,
-      `*Preferred Contact:* ${preferredMethod}`,
+      `*Interested In:* ${categoryText}`,
+      `*Preferred Contact:* ${methodText}`,
       message.trim() ? `*Notes:* ${message.trim()}` : null,
       `---------------------------------`,
-      `_Sent via advisor portfolio website_`,
+      `_Sent via advisor website (Language: ${language.toUpperCase()})_`,
     ].filter(Boolean);
 
     const fullMessage = textLines.join('\n');
@@ -102,20 +158,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     <section id="contact" className="section contact-section">
       <div className="container">
         <div className="section-header">
-          <span className="section-tag green">Connect Directly</span>
-          <h2 className="section-title">Let's Find the Right Insurance Options for You</h2>
-          <p className="section-subtitle">
-            Have questions about health, life or general insurance? Get in touch to discuss your requirements.
-          </p>
+          <span className="section-tag green">{t.contact.tag}</span>
+          <h2 className="section-title">{t.contact.title}</h2>
+          <p className="section-subtitle">{t.contact.subtitle}</p>
         </div>
 
         <div className="contact-layout">
           {/* Left Column: Direct Communication Cards */}
           <div className="contact-info-cards">
-            <h3 className="contact-info-heading">Direct Advisory Channels</h3>
-            <p className="contact-info-lead">
-              You are welcome to reach out via your preferred method. Fast responses during normal business hours across India.
-            </p>
+            <h3 className="contact-info-heading">{t.contact.directHeading}</h3>
+            <p className="contact-info-lead">{t.contact.directLead}</p>
 
             <div className="contact-methods-grid">
               {/* Call Card */}
@@ -128,15 +180,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <Phone size={22} />
                 </div>
                 <div className="contact-card-details">
-                  <span className="card-label">Direct Phone Call</span>
+                  <span className="card-label">{t.contact.callLabel}</span>
                   <span className="card-value">{advisor.phoneFormatted}</span>
-                  <span className="card-action">Tap to call now &rarr;</span>
+                  <span className="card-action">{t.contact.callAction}</span>
                 </div>
               </a>
 
               {/* WhatsApp Card */}
               <a
-                href={`https://wa.me/91${advisor.phoneRaw}?text=${encodeURIComponent('Hello Balasubramanya sir, I would like to enquire about insurance.')}`}
+                href={`https://wa.me/91${advisor.phoneRaw}?text=${encodeURIComponent(t.whatsappMessages.generalGreeting)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-card-item"
@@ -146,9 +198,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <MessageCircle size={22} />
                 </div>
                 <div className="contact-card-details">
-                  <span className="card-label">WhatsApp Chat</span>
+                  <span className="card-label">{t.contact.whatsappLabel}</span>
                   <span className="card-value">{advisor.phoneFormatted}</span>
-                  <span className="card-action">Instant messaging &rarr;</span>
+                  <span className="card-action">{t.contact.whatsappAction}</span>
                 </div>
               </a>
 
@@ -162,29 +214,25 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <Mail size={22} />
                 </div>
                 <div className="contact-card-details">
-                  <span className="card-label">Email Enquiry</span>
+                  <span className="card-label">{t.contact.emailLabel}</span>
                   <span className="card-value">{advisor.email}</span>
-                  <span className="card-action">Send detailed message &rarr;</span>
+                  <span className="card-action">{t.contact.emailAction}</span>
                 </div>
               </a>
             </div>
 
             {/* Direct Assurance Notice */}
             <div className="contact-assurance-box">
-              <span className="assurance-title">No Pressure Guarantee</span>
-              <p>
-                Enquiries are solely to discuss your requirements. You will never be subjected to high-pressure sales calls or unsolicited spam.
-              </p>
+              <span className="assurance-title">{t.contact.assuranceTitle}</span>
+              <p>{t.contact.assuranceDesc}</p>
             </div>
           </div>
 
           {/* Right Column: Interactive Consultation Request Form */}
           <div className="contact-form-wrapper">
             <div className="form-card">
-              <h3 className="form-title">Request a Consultation</h3>
-              <p className="form-subtitle">
-                Fill in your details below. Your enquiry will be prefilled into WhatsApp for immediate direct delivery.
-              </p>
+              <h3 className="form-title">{t.contact.formTitle}</h3>
+              <p className="form-subtitle">{t.contact.formSubtitle}</p>
 
               {isPrepared && handoffUrl ? (
                 // SUCCESS / HANDOFF STATE
@@ -192,10 +240,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className="handoff-icon-wrapper">
                     <CheckCircle size={36} className="handoff-check-icon" />
                   </div>
-                  <h4 className="handoff-title">Your Enquiry Is Ready!</h4>
-                  <p className="handoff-desc">
-                    To maintain privacy and avoid third-party storage, your enquiry has been formatted and is ready to send directly to <strong>{advisor.fullName}</strong>.
-                  </p>
+                  <h4 className="handoff-title">{t.contact.handoffReadyTitle}</h4>
+                  <p className="handoff-desc">{t.contact.handoffReadyDesc}</p>
 
                   <div className="handoff-actions">
                     <a
@@ -205,19 +251,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       className="btn btn-whatsapp btn-lg handoff-btn"
                     >
                       <MessageCircle size={20} />
-                      <span>Send via WhatsApp Now</span>
+                      <span>{t.contact.handoffSendWhatsapp}</span>
                       <ArrowUpRight size={18} />
                     </a>
 
                     <a
                       href={buildMailtoUrl(
-                        `Insurance Enquiry: ${category} (${fullName})`,
-                        `Name: ${fullName}\nPhone: ${phone}\nCategory: ${category}\nNotes: ${message}`
+                        `Insurance Enquiry: ${getCategoryLabel(category)} (${fullName})`,
+                        `Name: ${fullName}\nPhone: ${phone}\nCategory: ${getCategoryLabel(category)}\nPreferred Method: ${getMethodLabel(preferredMethod)}\nNotes: ${message}`
                       )}
                       className="btn btn-outline handoff-btn-secondary"
                     >
                       <Mail size={16} />
-                      <span>Send via Email Instead</span>
+                      <span>{t.contact.handoffSendEmail}</span>
                     </a>
 
                     <button
@@ -225,7 +271,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       onClick={handleReset}
                       className="btn-link handoff-reset-btn"
                     >
-                      Edit details or send another enquiry
+                      {t.contact.handoffReset}
                     </button>
                   </div>
                 </div>
@@ -235,7 +281,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   {/* Full Name */}
                   <div className="form-group">
                     <label htmlFor="fullName" className="form-label">
-                      Full Name <span className="required-star">*</span>
+                      {t.contact.nameLabel} <span className="required-star">*</span>
                     </label>
                     <input
                       type="text"
@@ -246,7 +292,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         setFullName(e.target.value);
                         if (errors.fullName) setErrors({ ...errors, fullName: '' });
                       }}
-                      placeholder="e.g. Rajesh Kumar"
+                      placeholder={t.contact.namePlaceholder}
                       className={`form-input ${errors.fullName ? 'has-error' : ''}`}
                       required
                     />
@@ -260,7 +306,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   {/* Phone Number */}
                   <div className="form-group">
                     <label htmlFor="phone" className="form-label">
-                      Mobile Number <span className="required-star">*</span>
+                      {t.contact.phoneLabel} <span className="required-star">*</span>
                     </label>
                     <div className="phone-input-wrap">
                       <span className="phone-prefix">+91</span>
@@ -273,7 +319,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                           setPhone(e.target.value);
                           if (errors.phone) setErrors({ ...errors, phone: '' });
                         }}
-                        placeholder="98765 43210"
+                        placeholder={t.contact.phonePlaceholder}
                         className={`form-input phone-field ${errors.phone ? 'has-error' : ''}`}
                         required
                       />
@@ -288,7 +334,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   {/* Email (Optional) */}
                   <div className="form-group">
                     <label htmlFor="email" className="form-label">
-                      Email Address <span className="optional-tag">(Optional)</span>
+                      {t.contact.formEmailLabel} <span className="optional-tag">(Optional)</span>
                     </label>
                     <input
                       type="email"
@@ -296,15 +342,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       name="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="e.g. rajesh@example.com"
+                      placeholder={t.contact.emailPlaceholder}
                       className="form-input"
                     />
                   </div>
 
-                  {/* Insurance Category Dropdown */}
+                  {/* Insurance Category Dropdown (Includes ICICI Lombard Health, SBI Term & Children's) */}
                   <div className="form-group">
                     <label htmlFor="category" className="form-label">
-                      Insurance Category <span className="required-star">*</span>
+                      {t.contact.categoryLabel} <span className="required-star">*</span>
                     </label>
                     <select
                       id="category"
@@ -313,18 +359,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       onChange={(e) => setCategory(e.target.value)}
                       className="form-select"
                     >
-                      <option value="Health">Health Insurance (Star Health)</option>
-                      <option value="Life">Life Insurance (SBI Life)</option>
-                      <option value="Motor">Motor Insurance (ICICI Lombard)</option>
-                      <option value="Travel">Travel Insurance (ICICI Lombard)</option>
-                      <option value="Home">Home Insurance (ICICI Lombard)</option>
-                      <option value="Other">Other General Insurance</option>
+                      <optgroup label="Health Insurance">
+                        <option value="HealthStar">{t.contact.categories.healthStar}</option>
+                        <option value="HealthIcici">{t.contact.categories.healthIcici}</option>
+                      </optgroup>
+                      <optgroup label="Life, Term & Child Protection (SBI Life)">
+                        <option value="TermSbi">{t.contact.categories.termSbi}</option>
+                        <option value="ChildSbi">{t.contact.categories.childSbi}</option>
+                        <option value="LifeSbi">{t.contact.categories.lifeSbi}</option>
+                      </optgroup>
+                      <optgroup label="General Insurance (ICICI Lombard)">
+                        <option value="MotorIcici">{t.contact.categories.motorIcici}</option>
+                        <option value="TravelIcici">{t.contact.categories.travelIcici}</option>
+                        <option value="HomeIcici">{t.contact.categories.homeIcici}</option>
+                        <option value="Other">{t.contact.categories.otherGeneral}</option>
+                      </optgroup>
                     </select>
                   </div>
 
                   {/* Preferred Contact Method */}
                   <div className="form-group">
-                    <span className="form-label">Preferred Contact Method</span>
+                    <span className="form-label">{t.contact.preferredMethodLabel}</span>
                     <div className="contact-methods-radio-group">
                       {(['WhatsApp', 'Call', 'Email'] as const).map((method) => (
                         <label key={method} className={`radio-pill ${preferredMethod === method ? 'active' : ''}`}>
@@ -336,7 +391,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                             onChange={() => setPreferredMethod(method)}
                             className="sr-only"
                           />
-                          <span>{method}</span>
+                          <span>{getMethodLabel(method)}</span>
                         </label>
                       ))}
                     </div>
@@ -345,7 +400,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   {/* Message (Optional) */}
                   <div className="form-group">
                     <label htmlFor="message" className="form-label">
-                      Your Questions or Requirements <span className="optional-tag">(Optional)</span>
+                      {t.contact.notesLabel} <span className="optional-tag">(Optional)</span>
                     </label>
                     <textarea
                       id="message"
@@ -353,7 +408,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       rows={3}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="e.g. Looking for individual health coverage with maternity benefit, or term insurance quotes..."
+                      placeholder={t.contact.notesPlaceholder}
                       className="form-textarea"
                     ></textarea>
                   </div>
@@ -372,15 +427,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         required
                       />
                       <span className="checkbox-text">
-                        I agree to be contacted by Balasubramanya MG regarding this insurance enquiry and have reviewed the{' '}
+                        {t.contact.consentTextPre}
                         <button
                           type="button"
                           onClick={() => onOpenPrivacyModal('privacy')}
                           className="link-button"
                         >
-                          privacy notice
+                          {t.contact.consentPrivacyLink}
                         </button>
-                        . <span className="required-star">*</span>
+                        {t.contact.consentTextPost} <span className="required-star">*</span>
                       </span>
                     </label>
                     {errors.consent && (
@@ -393,12 +448,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   {/* Submit Button */}
                   <button type="submit" className="btn btn-primary btn-lg form-submit-btn">
                     <Send size={18} />
-                    <span>Proceed to WhatsApp Hand-Off</span>
+                    <span>{t.contact.submitBtn}</span>
                   </button>
 
-                  <p className="form-privacy-note">
-                    🔒 <strong>Privacy Assurance:</strong> Your details are used strictly to reply to your enquiry and are not shared with third-party advertisers.
-                  </p>
+                  <p className="form-privacy-note">{t.contact.privacyNote}</p>
                 </form>
               )}
             </div>

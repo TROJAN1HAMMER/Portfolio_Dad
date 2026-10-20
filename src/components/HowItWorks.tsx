@@ -1,9 +1,9 @@
 import React from 'react';
 import { MessageSquare, Search, FileCheck, ArrowRight } from 'lucide-react';
-import { BUSINESS_CONFIG } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 export const HowItWorks: React.FC = () => {
-  const { howItWorks } = BUSINESS_CONFIG;
+  const { t } = useTranslation();
 
   const getStepIcon = (index: number) => {
     switch (index) {
@@ -34,22 +34,20 @@ export const HowItWorks: React.FC = () => {
     <section className="section how-section">
       <div className="container">
         <div className="section-header">
-          <span className="section-tag green">Simple Advisory Process</span>
-          <h2 className="section-title">Getting Started Is Simple</h2>
-          <p className="section-subtitle">
-            A structured, pressure-free way to explore the right insurance protection for you and your family.
-          </p>
+          <span className="section-tag green">{t.howItWorks.tag}</span>
+          <h2 className="section-title">{t.howItWorks.title}</h2>
+          <p className="section-subtitle">{t.howItWorks.subtitle}</p>
         </div>
 
         <div className="how-steps-grid">
-          {howItWorks.map((item, idx) => (
+          {t.howItWorks.steps.map((item, idx) => (
             <div key={item.step} className="how-step-card">
               <div className="how-step-header">
                 <span className="how-step-number">{item.step}</span>
                 <div className="how-step-icon">{getStepIcon(idx)}</div>
               </div>
               <h3 className="how-step-title">{item.title}</h3>
-              <p className="how-step-desc">{item.description}</p>
+              <p className="how-step-desc">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -60,12 +58,10 @@ export const HowItWorks: React.FC = () => {
             onClick={handleCtaClick}
             className="btn btn-gold btn-lg how-cta-btn"
           >
-            <span>Discuss Your Insurance Needs</span>
+            <span>{t.howItWorks.cta}</span>
             <ArrowRight size={18} />
           </button>
-          <span className="how-note">
-            *Non-binding consultation. All coverage is subject to insurer underwriting and terms.
-          </span>
+          <span className="how-note">{t.howItWorks.note}</span>
         </div>
       </div>
     </section>

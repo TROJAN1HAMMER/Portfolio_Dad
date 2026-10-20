@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Menu, X, Shield } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
+import { LanguageSelector } from './LanguageSelector';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { advisor } = BUSINESS_CONFIG;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,12 +20,12 @@ export const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Why Choose Me', href: '#why-me' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.header.navHome, href: '#home' },
+    { name: t.header.navAbout, href: '#about' },
+    { name: t.header.navServices, href: '#services' },
+    { name: t.header.navWhyMe, href: '#why-me' },
+    { name: t.header.navFaq, href: '#faq' },
+    { name: t.header.navContact, href: '#contact' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -50,8 +53,8 @@ export const Header: React.FC = () => {
             <Shield className="brand-shield" size={14} />
           </div>
           <div className="brand-text">
-            <span className="brand-name">{advisor.fullName}</span>
-            <span className="brand-descriptor">{advisor.title}</span>
+            <span className="brand-name">{t.header.advisorName}</span>
+            <span className="brand-descriptor">{t.header.advisorRole}</span>
           </div>
         </a>
 
@@ -59,7 +62,7 @@ export const Header: React.FC = () => {
         <nav className="desktop-nav" aria-label="Main Navigation">
           <ul className="nav-list">
             {navLinks.map((link) => (
-              <li key={link.name} className="nav-item">
+              <li key={link.href} className="nav-item">
                 <a
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
@@ -72,15 +75,18 @@ export const Header: React.FC = () => {
           </ul>
         </nav>
 
-        {/* Action Header Button */}
+        {/* Action Header Button & Language Selector */}
         <div className="header-actions">
+          {/* Header Language Selector */}
+          <LanguageSelector />
+
           <a
             href={buildTelUrl()}
             className="btn btn-primary btn-sm header-call-btn"
             aria-label={`Call ${advisor.fullName} at ${advisor.phoneFormatted}`}
           >
             <Phone size={15} />
-            <span>Call Now</span>
+            <span>{t.header.callNow}</span>
           </a>
 
           {/* Mobile Hamburger Toggle */}
@@ -89,7 +95,7 @@ export const Header: React.FC = () => {
             className="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
+            aria-label={mobileMenuOpen ? t.header.menuClose : t.header.menuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -106,23 +112,26 @@ export const Header: React.FC = () => {
                 <span>{advisor.initials}</span>
               </div>
               <div className="brand-text">
-                <span className="brand-name">{advisor.fullName}</span>
-                <span className="brand-descriptor">{advisor.title}</span>
+                <span className="brand-name">{t.header.advisorName}</span>
+                <span className="brand-descriptor">{t.header.advisorRole}</span>
               </div>
               <button
                 type="button"
                 className="drawer-close-btn"
                 onClick={() => setMobileMenuOpen(false)}
-                aria-label="Close menu"
+                aria-label={t.header.menuClose}
               >
                 <X size={22} />
               </button>
             </div>
 
+            {/* Language Selector inside Mobile Drawer */}
+            <LanguageSelector isMobileDrawer />
+
             <nav className="mobile-nav">
               <ul className="mobile-nav-list">
                 {navLinks.map((link) => (
-                  <li key={link.name}>
+                  <li key={link.href}>
                     <a
                       href={link.href}
                       onClick={(e) => handleLinkClick(e, link.href)}
@@ -142,7 +151,7 @@ export const Header: React.FC = () => {
                 style={{ width: '100%' }}
               >
                 <Phone size={18} />
-                <span>Call {advisor.phoneFormatted}</span>
+                <span>{t.header.callNow} — {advisor.phoneFormatted}</span>
               </a>
             </div>
           </div>

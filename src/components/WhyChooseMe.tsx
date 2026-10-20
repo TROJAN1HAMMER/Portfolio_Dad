@@ -1,20 +1,19 @@
 import React from 'react';
 import { UserCheck, FileText, Layers, Headphones, CheckCircle2 } from 'lucide-react';
-import { BUSINESS_CONFIG } from '../config/business';
+import { useTranslation } from '../i18n/I18nContext';
 
 export const WhyChooseMe: React.FC = () => {
-  const { whyChooseMe } = BUSINESS_CONFIG;
+  const { t } = useTranslation();
 
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'UserCheck':
+  const getIcon = (index: number) => {
+    switch (index) {
+      case 0:
         return <UserCheck size={28} className="why-icon" />;
-      case 'HelpCircle':
-      case 'FileText':
+      case 1:
         return <FileText size={28} className="why-icon" />;
-      case 'Layers':
+      case 2:
         return <Layers size={28} className="why-icon" />;
-      case 'Headphones':
+      case 3:
       default:
         return <Headphones size={28} className="why-icon" />;
     }
@@ -24,25 +23,22 @@ export const WhyChooseMe: React.FC = () => {
     <section id="why-me" className="section why-section">
       <div className="container">
         <div className="section-header">
-          <span className="section-tag">Value &amp; Transparency</span>
-          <h2 className="section-title">Insurance Guidance You Can Trust</h2>
-          <p className="section-subtitle">
-            An advisor who takes the time to listen, explain the fine print, and support
-            your choices without pressure.
-          </p>
+          <span className="section-tag">{t.whyMe.tag}</span>
+          <h2 className="section-title">{t.whyMe.title}</h2>
+          <p className="section-subtitle">{t.whyMe.subtitle}</p>
         </div>
 
         <div className="why-grid">
-          {whyChooseMe.map((item, index) => (
+          {t.whyMe.cards.map((item, index) => (
             <div key={index} className="why-card">
               <div className="why-icon-wrapper">
-                {getIcon(item.icon)}
+                {getIcon(index)}
               </div>
               <h3 className="why-card-title">{item.title}</h3>
-              <p className="why-card-desc">{item.description}</p>
+              <p className="why-card-desc">{item.desc}</p>
               <div className="why-card-footer">
                 <CheckCircle2 size={16} className="why-check" />
-                <span>Client-First Approach</span>
+                <span>{t.whyMe.clientFirst}</span>
               </div>
             </div>
           ))}
@@ -51,12 +47,8 @@ export const WhyChooseMe: React.FC = () => {
         {/* Commitment Banner */}
         <div className="why-commitment-banner">
           <div className="commitment-content">
-            <h4>No Unrealistic Promises. Just Honest Advice.</h4>
-            <p>
-              Insurance approvals and claims are subject to official insurer guidelines.
-              My role is to ensure you submit accurate information, understand waiting periods,
-              and select plans that match your personal financial goals.
-            </p>
+            <h4>{t.whyMe.bannerTitle}</h4>
+            <p>{t.whyMe.bannerDesc}</p>
           </div>
         </div>
       </div>
