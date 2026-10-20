@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Balasubramanya MG — Insurance Advisor Portfolio & Lead Generation Website
+   Design System & Core Styles
+   ========================================================================== */
+
+:root {
+  /* Primary Brand Palette */
+  --color-navy: #082B60;
+  --color-navy-dark: #051B3D;
+  --color-navy-light: #0C3E8A;
+  --color-blue: #174EA6;
+  --color-blue-soft: #EBF2FD;
+  --color-white: #FFFFFF;
+  --color-green: #18863B;
+  --color-green-light: #E7F6ED;
+  --color-green-dark: #106029;
+  --color-bg-soft: #F4F7FB;
+  --color-gold: #F4C430;
+  --color-gold-hover: #E5B520;
+  --color-gold-light: #FEF9E6;
+
+  /* Neutrals & Text */
+  --color-text-main: #0E1E38;
+  --color-text-muted: #4B5A70;
+  --color-text-light: #718096;
+  --color-border: #D8E2F0;
+  --color-border-subtle: #E8EEF7;
+  --color-card-bg: #FFFFFF;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(8, 43, 96, 0.05);
+  --shadow-sm: 0 2px 4px 0 rgba(8, 43, 96, 0.06), 0 1px 2px 0 rgba(8, 43, 96, 0.04);
+  --shadow-md: 0 6px 16px -2px rgba(8, 43, 96, 0.08), 0 2px 6px -1px rgba(8, 43, 96, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(8, 43, 96, 0.12), 0 4px 12px -2px rgba(8, 43, 96, 0.06);
+  --shadow-xl: 0 20px 36px -6px rgba(8, 43, 96, 0.16), 0 8px 16px -4px rgba(8, 43, 96, 0.08);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 76px;
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+}
+
+/* CSS Reset & Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-soft);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-navy);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+p {
+  color: var(--color-text-muted);
+}
+
+a {
+  color: var(--color-blue);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-navy);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+/* Utility Containers */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.section-alt {
+  background-color: var(--color-white);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3.25rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-blue);
+  background-color: var(--color-blue-soft);
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.875rem;
+}
+
+.section-tag.green {
+  color: var(--color-green);
+  background-color: var(--color-green-light);
+}
+
+.section-title {
+  font-size: 2.25rem;
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+/* Common Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-navy-dark);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp {
+  background-color: var(--color-green);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-whatsapp:hover {
+  background-color: var(--color-green-dark);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-gold {
+  background-color: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-gold:hover {
+  background-color: var(--color-gold-hover);
+  color: var(--color-navy-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-white);
+  color: var(--color-navy);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+  background-color: var(--color-blue-soft);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 0.95rem 2rem;
+  font-size: 1.05rem;
+}
+
+/* Accessible hidden text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

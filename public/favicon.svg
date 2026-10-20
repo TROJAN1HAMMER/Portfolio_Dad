@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#082B60"/>
+      <stop offset="100%" stop-color="#174EA6"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield Background -->
+  <path d="M32 4 L56 14 C56 36 46 52 32 60 C18 52 8 36 8 14 Z" fill="url(#shieldGrad)" />
+  <!-- Inner Shield Accent -->
+  <path d="M32 8 L52 17 C52 35 44 49 32 55.5 C20 49 12 35 12 17 Z" fill="none" stroke="#F4C430" stroke-width="2" opacity="0.6" />
+  <!-- Monogram BM -->
+  <text x="32" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">BM</text>
+  <!-- Small Star / Trust Accent -->
+  <circle cx="32" cy="46" r="2.5" fill="#18863B" />
+</svg>
