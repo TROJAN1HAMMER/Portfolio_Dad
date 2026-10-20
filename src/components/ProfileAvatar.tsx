@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shield, Award } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../config/business';
+import heroPhoto from '../assets/hero.png';
 
 interface ProfileAvatarProps {
   size?: 'hero' | 'about' | 'compact';
@@ -34,13 +35,13 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ size = 'hero', cla
   return (
     <div className={`profile-avatar-wrapper ${size} ${className}`}>
       <div className="profile-avatar-frame">
-        {usePhoto && photoPath ? (
-          // REAL PHOTOGRAPH DISPLAY (activated when user sets usePhoto: true)
+        {usePhoto ? (
+          // REAL PHOTOGRAPH DISPLAY (activated)
           <img
-            src={photoPath}
+            src={heroPhoto || photoPath}
             alt={altText}
             className="profile-real-image"
-            style={{ objectPosition: objectPosition || 'center center' }}
+            style={{ objectPosition: objectPosition || 'center 18%' }}
             loading={isHero ? 'eager' : 'lazy'}
           />
         ) : (

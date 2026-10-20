@@ -30,10 +30,10 @@ export const BUSINESS_CONFIG = {
     // The profile picture placeholder configuration.
     // When the actual photograph is available, set `usePhoto: true` and specify `photoPath`.
     profilePicture: {
-      usePhoto: false, // Set to true when actual photo is added
-      photoPath: '/assets/advisor-portrait.jpg', // Place the real image in public/assets or src/assets
+      usePhoto: true, // Activated: Actual photograph supplied
+      photoPath: '/assets/advisor-portrait.png',
       altText: 'Balasubramanya MG - Insurance Advisor',
-      objectPosition: 'center 20%', // Adjust crop centering if necessary
+      objectPosition: 'center top', // Natural framing of head & shoulders
     },
   },
 
