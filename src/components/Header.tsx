@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Phone, Menu, X, Shield } from 'lucide-react';
 import { BUSINESS_CONFIG, buildTelUrl } from '../config/business';
 import { useTranslation } from '../i18n/I18nContext';
@@ -18,6 +19,18 @@ export const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent background scrolling when mobile menu drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { name: t.header.navHome, href: '#home' },
@@ -45,7 +58,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="container header-container">
+      <div className="header-container">
         {/* Brand Logo & Advisor Info */}
         <a href="#home" onClick={(e) => handleLinkClick(e, '#home')} className="brand-logo" aria-label="Go to home">
           <div className="brand-badge">
@@ -102,8 +115,8 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
+      {/* Mobile Drawer Navigation Portaled to document.body */}
+      {mobileMenuOpen && typeof document !== 'undefined' && createPortal(
         <div className="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
           <div className="mobile-drawer-backdrop" onClick={() => setMobileMenuOpen(false)}></div>
           <div className="mobile-drawer-content">
@@ -155,7 +168,8 @@ export const Header: React.FC = () => {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );

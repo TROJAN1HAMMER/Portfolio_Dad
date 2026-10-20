@@ -31,6 +31,11 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>(() => {
     if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = params.get('lang') as LanguageCode | null;
+      if (urlLang && TRANSLATIONS[urlLang]) {
+        return urlLang;
+      }
       const saved = localStorage.getItem(STORAGE_KEY) as LanguageCode | null;
       if (saved && TRANSLATIONS[saved]) {
         return saved;
