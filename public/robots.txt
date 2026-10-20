@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://balasubramanya-insurance.com/sitemap.xml
+Sitemap: https://agentbalu.vercel.app/sitemap.xml

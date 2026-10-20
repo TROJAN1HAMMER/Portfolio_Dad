@@ -187,7 +187,7 @@ export const BUSINESS_CONFIG = {
     title: 'Balasubramanya MG | Health, Life & General Insurance Advisor',
     description:
       'Explore health, life, motor, travel and home insurance options with Balasubramanya MG. Call or WhatsApp for personalized insurance guidance.',
-    canonicalUrl: 'https://balasubramanya-insurance.com', // Update with actual domain upon deployment
+    canonicalUrl: 'https://agentbalu.vercel.app', // Verified production domain
     siteName: 'Balasubramanya MG - Insurance Advisor',
     locale: 'en_IN',
   },
